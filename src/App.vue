@@ -1,5 +1,5 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue';
+// import HelloWorld from './components/HelloWorld.vue';
 
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios'
@@ -7,6 +7,7 @@ import axios from 'axios'
 const products = ref([])
 const currentIndex = ref(0)
 
+//memanggil API
 const fetchProducts = async () => {
   try {
     const response = await axios.get('https://fakestoreapi.com/products');
@@ -38,7 +39,7 @@ const currentCategoryClass = computed(() => {
   }
 })
 
-// color button
+// perubahan warna
 const color = computed(() => {
 
   const category = currentProduct.value.category;
@@ -53,6 +54,7 @@ const color = computed(() => {
   return "#1e1e1e";
 })
 
+//memastikan index selalu berjalan
 const nextProduct = () => {
   if(currentIndex.value < products.value.length - 1) {
     currentIndex.value++
@@ -61,6 +63,7 @@ const nextProduct = () => {
   }
 }
 
+// membuat rating sesuai sama value rating
 const filledCircles = computed(() => {
   if (!currentProduct.value || !currentProduct.value.rating) {
     return [];
@@ -78,8 +81,6 @@ const filledCircles = computed(() => {
   ];
 });
 
-
-
 </script>
 
 <template>
@@ -94,11 +95,6 @@ const filledCircles = computed(() => {
           <p class="category">{{ currentProduct.category }}</p>
           <div class="rating">{{ currentProduct.rating.rate }} 
             <div class="stars">
-              <!-- <div class="lingkaran"></div>
-              <div class="lingkaran"></div>
-              <div class="lingkaran"></div>
-              <div class="lingkaran"></div>
-              <div class="lingkaran"></div> -->
               <div
                 v-for="(type, index) in filledCircles"
                 :key="index"
